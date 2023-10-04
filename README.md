@@ -9,7 +9,7 @@ A small bundle of Flow Operations which enable interaction with the [OpenAI](htt
 ## Installation
 
 The package is published to npm:
-`npm install directus-extension-ai-operations`
+`npm install https://github.com/ilanur/directus-extension-ai-operations.git`
 
 **Manual Installation**
 - Download or fork the repository
