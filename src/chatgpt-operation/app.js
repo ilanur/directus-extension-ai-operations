@@ -4,14 +4,28 @@ export default defineOperationApp({
 	id: "chatgpt-operation",
 	name: "ChatGPT Text Generator",
 	icon: "forum",
-	description: "ChatGPT Text Generator!",
-	overview: ({ messages }) => [
+	description: "ChatGPT Text Generator",
+	overview: ({ system_messages }) => [
 		{
-			label: "Messages",
-			messages: messages,
+			label: "System Messages",
+			system_messages: system_messages,
 		},
 	],
 	options: [
+		{
+			field: "system_messages",
+			name: "System message content",
+			type: "text",
+			meta: {
+				width: "full",
+				interface: "text",
+				special: null,
+				options: {
+					masked: false,
+					placeholder: "Write a title (about 8-10 words) and a content (50-60 words) about...",
+				}
+			},
+		},
 		{
 			field: "messages",
 			name: "Messages",
@@ -64,6 +78,55 @@ export default defineOperationApp({
 				},
 			},
 		},
+		{
+			field: 'model',
+			name: 'OpenAI model',
+			type: 'string',
+			schema: {
+				default_value: 'gpt-3.5-turbo',
+			},
+			meta: {
+				field: 'model',
+				special: null,
+				interface: 'select-dropdown',
+				options: {
+					choices: [
+						{
+							text: 'gpt-3.5-turbo',
+							value: 'gpt-3.5-turbo',
+						},
+						{
+							text: 'gpt-4',
+							value: 'gpt-4',
+						},
+						{
+							text: 'gpt-4-32k',
+							value: 'gpt-4-32k',
+						},
+						{
+							text: 'gpt-3.5-turbo-16k',
+							value: 'gpt-3.5-turbo-16k',
+						},
+					],
+				},
+				width: 'half',
+				group: 'advanced',
+			},
+		},
+		{
+            field: 'json_return',
+			name: 'Parse the response as JSON',
+            type: 'boolean',
+			schema: {
+				default_value: true,
+			},
+            meta: {
+				field: 'json_return',
+                special: [ 'cast-boolean' ],
+                interface: "boolean",
+                options: null,
+            }
+        },
 		{
 			field: "temperature",
 			name: "Temperature",

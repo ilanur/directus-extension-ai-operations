@@ -1,19 +1,79 @@
 export default {
-	id: 'dall-e-operation',
-	name: 'DALL-E Image Generator',
-	icon: 'image',
-	description: 'DALL-E Image Generator!',
-	overview: ({ text, save_assets=true }) => [
-		{
-			label: 'Prompt',
-			text: text,
-		},
-		{
-			label: 'Save To File Library',
-			text: save_assets ? 'Yes' : 'No',
-		},
-	],
-	options: [
+    id: 'dall-e-operation',
+    name: 'DALL-E Image Generator',
+    icon: 'image',
+    description: 'DALL-E Image Generator!',
+    overview: ({ text, save_assets=true, operation }) => [
+        {
+            label: 'Operation',
+            text: operation,
+        },
+        {
+            label: 'Prompt',
+            text: text,
+        },
+        {
+            label: 'Save To File Library',
+            text: save_assets ? 'Yes' : 'No',
+        },
+    ],
+    options: [
+        {
+            field: 'operation',
+            name: 'Operation',
+            type: 'string',
+            schema: {
+                default_value: 'generation',
+            },
+            meta: {
+                field: 'operation',
+                special: null,
+                interface: 'select-dropdown',
+                options: {
+                    choices: [
+                        {
+                            text: 'Generation',
+                            value: 'generation',
+                        },
+                        {
+                            text: 'Edit',
+                            value: 'edit',
+                        },
+                        {
+                            text: 'Variation',
+                            value: 'variation',
+                        },
+                    ],
+                },
+                width: 'full',
+            },
+        },
+        {
+            field: 'image',
+            name: 'Image',
+            type: 'string',
+            meta: {
+                width: 'full',
+                interface: 'file',
+                special: null,
+                options: {
+                    container: 'files',
+                },
+            },
+        },
+        {
+            field: 'mask',
+            name: 'Mask',
+            type: 'string',
+            meta: {
+                width: 'full',
+                interface: 'file',
+                special: null,
+                options: {
+                    container: 'files',
+                },
+            },
+        },
 		{
 			field: 'text',
 			name: 'Prompt',

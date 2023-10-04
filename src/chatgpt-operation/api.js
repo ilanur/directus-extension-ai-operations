@@ -8,7 +8,10 @@ export default defineOperationApi({
 	id: "chatgpt-operation",
 	handler: async (
 		{
+			system_messages,
 			messages,
+			model = "gpt-3.5-turbo",
+			json_return = true,
 			api_key,
 			temperature = 0.5,
 			max_tokens = null,
@@ -25,18 +28,32 @@ export default defineOperationApi({
 		const apiKey = await getSetting(settings, openAIField.field, api_key);
 		const configuration = new Configuration({ apiKey });
 		const openai = new OpenAIApi(configuration);
+		
+		if( system_messages !=""){
+			messages = [{
+				"role": "system",
+				"content": system_messages
+			}];
+		}
+		else{
+			messages = JSON.parse(messages)
+		}
 
 		try {
 			const completion = await openai.createChatCompletion({
-				model: "gpt-3.5-turbo",
-				messages: JSON.parse(messages),
+				model: model,
+				messages: messages,
 				temperature,
 				max_tokens,
 				top_p,
 				frequency_penalty,
 				presence_penalty,
 			});
-			const response = completion.data.choices[0].message.content;
+			let response = completion.data.choices[0].message.content;
+
+			if(json_return){
+				response= JSON.parse(response);
+			}
 
 			return {
 				response: response,
