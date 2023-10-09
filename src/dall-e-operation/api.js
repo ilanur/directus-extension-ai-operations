@@ -6,7 +6,7 @@ import { getSetting } from '../lib/util';
 export default defineOperationApi({
 	id: 'dall-e-operation',
 	handler: async (
-		{ operation, text, image, mask, api_key, amount=1, size='1024x1024', save_assets=true }, 
+		{ operation ="generation", text, image, mask, api_key, amount=1, size='1024x1024', save_assets=true }, 
 		{ services, database, getSchema }
 	) => {
 		const { FilesService, SettingsService } = services;
