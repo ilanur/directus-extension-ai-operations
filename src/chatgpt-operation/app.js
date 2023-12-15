@@ -96,8 +96,8 @@ export default defineOperationApp({
 							value: 'gpt-3.5-turbo',
 						},
 						{
-							text: 'gpt-4',
-							value: 'gpt-4',
+							text: 'gpt-4-1106-preview',
+							value: 'gpt-4-1106-preview',
 						},
 						{
 							text: 'gpt-4-32k',

@@ -5,6 +5,7 @@ import { getSetting } from '../lib/util';
 /*WORK IN PROGRESS (edits and variations)*/
 export default defineOperationApi({
 	id: 'dall-e-operation',
+	
 	handler: async (
 		{ operation ="generation", text, image, mask, api_key, amount=1, size='1024x1024', save_assets=true }, 
 		{ services, database, getSchema }
@@ -24,6 +25,7 @@ export default defineOperationApi({
 			case 'generation':
 				response = await openai.createImage({
 					prompt: text, n: amount, size,
+					model:"dall-e-3"
 				});
 				break;
 			case 'edit':

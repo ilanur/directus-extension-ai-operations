@@ -40,6 +40,11 @@ export default defineOperationApi({
 		}
 
 		try {
+			// the completion should check if json_return is true or false and if it is true, it should return response_format: { type: "json_object" } in the completion function
+
+			let responseFormat = json_return ? "json_object" : "text";
+
+			// Make the API call to OpenAI
 			const completion = await openai.createChatCompletion({
 				model: model,
 				messages: messages,
@@ -48,7 +53,11 @@ export default defineOperationApi({
 				top_p,
 				frequency_penalty,
 				presence_penalty,
+				response_format: responseFormat
 			});
+		
+
+
 			let response = completion.data.choices[0].message.content;
 
 			if(json_return){
