@@ -52,20 +52,21 @@ export default defineOperationApi({
 				top_p,
 				frequency_penalty,
 				presence_penalty,
-				response_format: responseFormat
+				response_format: { type: responseFormat },
 			});
-		
 
+			console.log("completion", completion);
 
 			let response = completion.choices[0].message.content;
 
 			if(json_return){
 				response= JSON.parse(response);
 			}
+			console.log("response", response);
 
 			return {
 				response: response,
-				usage: completion.data.usage,
+				usage: completion.usage,
 				finish_reason: completion.choices[0].finish_reason,
 			};
 		} catch (err) {
