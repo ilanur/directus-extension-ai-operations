@@ -1,5 +1,5 @@
 import { defineOperationApi } from '@directus/extensions-sdk';
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 import { openAIField } from '../configuration/fields';
 import { getSetting } from '../lib/util';
 
@@ -11,13 +11,12 @@ export default defineOperationApi({
 		const settings = new SettingsService({ schema, knex: database });
 
 		const apiKey = await getSetting(settings, openAIField.field, api_key);
-		const configuration = new Configuration({ apiKey });
-		const openai = new OpenAIApi(configuration);
+		const openai = new OpenAI({ apiKey });
 		
-		const response = await openai.createCompletion({
+		const response = await openai.completions.create({
 			model: "text-davinci-003", prompt: text, temperature,
 			max_tokens, top_p, frequency_penalty, presence_penalty
 		});
-		return { response: response.data.choices[0].text };
+		return { response: response.choices[0].text };
 	},
 });

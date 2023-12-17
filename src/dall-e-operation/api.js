@@ -1,5 +1,5 @@
 import { defineOperationApi } from '@directus/extensions-sdk';
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 import { openAIField } from '../configuration/fields';
 import { getSetting } from '../lib/util';
 /*WORK IN PROGRESS (edits and variations)*/
@@ -15,28 +15,27 @@ export default defineOperationApi({
 		const settings = new SettingsService({ schema, knex: database });
 		const files = new FilesService({ schema, knex: database });
 
-		const configuration = new Configuration({ 
+		const openai = new OpenAI({ 
 			apiKey: await getSetting(settings, openAIField.field, api_key)
 		});
-		const openai = new OpenAIApi(configuration);
 
 		let response;
 		switch (operation) {
 			case 'generation':
-				response = await openai.createImage({
+				response = await openai.images.generate({
 					prompt: text, n: amount, size,
 					model:"dall-e-3"
 				});
 				break;
 			case 'edit':
 				// Note: Assuming `image` and `mask` are Buffer objects or ReadStreams
-				response = await openai.createImageEdit({
+				response = await openai.images.edit({
 					image, mask, prompt: text, n: amount, size,
 				});
 				break;
 			case 'variation':
 				// Note: Assuming `image` is a Buffer object or a ReadStream
-				response = await openai.createImageVariation({
+				response = await openai.images.createVariation({
 					image, n: amount, size,
 				});
 				break;

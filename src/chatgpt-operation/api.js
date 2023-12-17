@@ -1,4 +1,4 @@
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 
 import { defineOperationApi } from "@directus/extensions-sdk";
 import { getSetting } from "../lib/util";
@@ -26,8 +26,7 @@ export default defineOperationApi({
 		const settings = new SettingsService({ schema, knex: database });
 
 		const apiKey = await getSetting(settings, openAIField.field, api_key);
-		const configuration = new Configuration({ apiKey });
-		const openai = new OpenAIApi(configuration);
+		const openai = new OpenAI({ apiKey });
 		
 		if( system_messages !=""){
 			messages = [{
@@ -45,7 +44,7 @@ export default defineOperationApi({
 			let responseFormat = json_return ? "json_object" : "text";
 
 			// Make the API call to OpenAI
-			const completion = await openai.createChatCompletion({
+			const completion = await openai.chat.completions.create({
 				model: model,
 				messages: messages,
 				temperature,
@@ -58,7 +57,7 @@ export default defineOperationApi({
 		
 
 
-			let response = completion.data.choices[0].message.content;
+			let response = completion.choices[0].message.content;
 
 			if(json_return){
 				response= JSON.parse(response);
@@ -67,7 +66,7 @@ export default defineOperationApi({
 			return {
 				response: response,
 				usage: completion.data.usage,
-				finish_reason: completion.data.choices[0].finish_reason,
+				finish_reason: completion.choices[0].finish_reason,
 			};
 		} catch (err) {
 			throw err;
