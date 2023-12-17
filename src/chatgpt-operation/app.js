@@ -83,7 +83,7 @@ export default defineOperationApp({
 			name: 'OpenAI model',
 			type: 'string',
 			schema: {
-				default_value: 'gpt-3.5-turbo',
+				default_value: 'gpt-3.5-turbo-1106',
 			},
 			meta: {
 				field: 'model',
@@ -92,21 +92,13 @@ export default defineOperationApp({
 				options: {
 					choices: [
 						{
-							text: 'gpt-3.5-turbo',
-							value: 'gpt-3.5-turbo',
+							text: 'gpt-3.5-turbo-1106',
+							value: 'gpt-3.5-turbo-1106',
 						},
 						{
 							text: 'gpt-4-1106-preview',
 							value: 'gpt-4-1106-preview',
-						},
-						{
-							text: 'gpt-4-32k',
-							value: 'gpt-4-32k',
-						},
-						{
-							text: 'gpt-3.5-turbo-16k',
-							value: 'gpt-3.5-turbo-16k',
-						},
+						}
 					],
 				},
 				width: 'half',

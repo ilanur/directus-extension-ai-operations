@@ -45,7 +45,7 @@ export default defineOperationApi({
 
 		let result = [], ids = [];
 		for (let i = 0; i < amount; i++) {
-			const url = response.data.data[i].url;
+			const url = response.data[i].url;
 			result.push(url);
 			if (save_assets) {
 				const id = await files.importOne(url);
