@@ -10,7 +10,7 @@ export default defineOperationApi({
 		{
 			system_messages,
 			messages,
-			model = "gpt-3.5-turbo",
+			model = "gpt-3.5-turbo-1106",
 			json_return = true,
 			api_key,
 			temperature = 0.5,
