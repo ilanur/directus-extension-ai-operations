@@ -75,14 +75,30 @@ export default {
             },
         },
 		{
-			field: 'text',
-			name: 'Prompt',
-			type: 'string',
-			meta: {
-				width: 'full',
-				interface: 'input',
-			},
-		},
+            field: 'text',
+            name: 'Prompt',
+            type: 'string',
+            meta: {
+                width: 'full',
+                interface: 'textarea',
+                options: {
+                    rows: 5,
+                },
+            },
+        },
+		{
+            field: 'folderId',
+            name: 'Folder ID',
+            type: 'uuid',
+            meta: {
+                width: 'full',
+                interface: 'input',
+                special: null,
+                options: {
+                    placeholder: 'Enter folder ID (optional)',
+                },
+            },
+        },
 		{
             field: 'save_assets',
 			name: 'Save To File Library',
